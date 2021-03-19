@@ -43,7 +43,7 @@ const savedb = db => {
 
 // process translates the loaded db and exports it
 const process = async (db) => {
-  const findAndReplaceStatement = db.prepare("UPDATE `text_data` SET `text`=:replace WHERE `text`=:search");
+  const findAndReplaceStatement = db.prepare("UPDATE `character_system_text` SET `text`=:replace WHERE `text`=:search");
   const data = await fetchTranslationJSON();
 
   // Search and replace for every item in data.json
