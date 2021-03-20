@@ -64,16 +64,16 @@ const process = async (db) => {
         });
     }
 
-    const findAndReplaceStatement = db.prepare("UPDATE `character_system_text` SET `text`=:replace WHERE `text`=:search");
-    const data = await fetchTranslationJSON2();
+    const findAndReplaceStatement2 = db.prepare("UPDATE `character_system_text` SET `text`=:replace WHERE `text`=:search");
+    const data2 = await fetchTranslationJSON2();
 
     // Search and replace for every item in data.json
-    for (const jpText in data) {
-        const cnText = data[jpText];
+    for (const jpText in data2) {
+        const cnText = data2[jpText];
         if (!cnText) continue; // Skip if enText is empty
 
         console.log(`Replacing ${jpText} with ${cnText}!`);
-        findAndReplaceStatement.run({
+        findAndReplaceStatement2.run({
             ":search": jpText,
             ":replace": cnText,
         });
