@@ -48,7 +48,7 @@ const savedb = db => {
 };
 
 // process translates the loaded db and exports it
-const process1 = async (db) => {
+const process = async (db) => {
     const findAndReplaceStatement = db.prepare("UPDATE `text_data` SET `text`=:replace WHERE `text`=:search");
     const data = await fetchTranslationJSON1();
 
@@ -63,12 +63,9 @@ const process1 = async (db) => {
             ":replace": cnText,
         });
     }
-};
 
-// process translates the loaded db and exports it
-const process2 = async (db) => {
-    const findAndReplaceStatement = db.prepare("UPDATE `character_system_text` SET `text`=:replace WHERE `text`=:search");
-    const data = await fetchTranslationJSON2();
+    findAndReplaceStatement = db.prepare("UPDATE `character_system_text` SET `text`=:replace WHERE `text`=:search");
+    data = await fetchTranslationJSON2();
 
     // Search and replace for every item in data.json
     for (const jpText in data) {
@@ -81,6 +78,8 @@ const process2 = async (db) => {
             ":replace": cnText,
         });
     }
+
+    savedb(db);
 };
 
 // listenFileChange loads picked file as sqlite database
@@ -94,9 +93,7 @@ const listenFileChange = () => {
         reader.addEventListener("load", () => {
             let uints = new Uint8Array(reader.result);
             db = new SQL.Database(uints);
-            process1(db);
-            process2(db);
-            savedb(db);
+            process(db);
         });
         reader.readAsArrayBuffer(file);
     });
