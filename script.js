@@ -64,8 +64,8 @@ const process = async (db) => {
         });
     }
 
-    findAndReplaceStatement = db.prepare("UPDATE `character_system_text` SET `text`=:replace WHERE `text`=:search");
-    data = await fetchTranslationJSON2();
+    const findAndReplaceStatement = db.prepare("UPDATE `character_system_text` SET `text`=:replace WHERE `text`=:search");
+    const data = await fetchTranslationJSON2();
 
     // Search and replace for every item in data.json
     for (const jpText in data) {
