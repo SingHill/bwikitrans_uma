@@ -63,9 +63,6 @@ const process1 = async (db) => {
             ":replace": cnText,
         });
     }
-
-    // Serve back to user
-    savedb(db);
 };
 
 // process translates the loaded db and exports it
@@ -84,9 +81,6 @@ const process2 = async (db) => {
             ":replace": cnText,
         });
     }
-
-    // Serve back to user
-    savedb(db);
 };
 
 // listenFileChange loads picked file as sqlite database
@@ -102,6 +96,7 @@ const listenFileChange = () => {
             db = new SQL.Database(uints);
             process1(db);
             process2(db);
+            savedb(db);
         });
         reader.readAsArrayBuffer(file);
     });
