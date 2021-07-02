@@ -101,7 +101,20 @@ const process = async (db) => {
             ":replace": cnText,
         });
     }
+    
+    const findAndReplaceStatement = db.prepare("UPDATE `skill_desc` SET `text`=:replace WHERE `text`=:search");
+    // Search and replace for every item in data.json
+    for (const jpText in data[4]) {
+        const cnText = data[4][jpText];
+        if (!cnText) continue; // Skip if enText is empty
 
+        console.log(`Replacing ${jpText} with ${cnText}!`);
+        findAndReplaceStatement.run({
+            ":search": jpText,
+            ":replace": cnText,
+        });
+    }
+    
     savedb(db);
 };
 
