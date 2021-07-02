@@ -9,8 +9,7 @@ const fetchTranslationJSON = async () => {
     const body2 = await fetch(`data/character_system_text.json?${new Date().getTime()}`);
     const body3 = await fetch(`data/race_jikkyo_comment.json?${new Date().getTime()}`);
     const body4 = await fetch(`data/race_jikkyo_message.json?${new Date().getTime()}`);
-    const body5 = await fetch(`data/skill_desc.json?${new Date().getTime()}`); 
-    const bodys = [await body.json(), await body2.json(), await body3.json(), await body4.json(), await body5.json()];
+    const bodys = [await body.json(), await body2.json(), await body3.json(), await body4.json()];
 
     return await bodys;
 }
@@ -102,18 +101,6 @@ const process = async (db) => {
         });
     }
     
-    const findAndReplaceStatement5 = db.prepare("UPDATE `skill_desc` SET `text`=:replace WHERE `text`=:search");
-    // Search and replace for every item in data.json
-    for (const jpText in data[4]) {
-        const cnText = data[4][jpText];
-        if (!cnText) continue; // Skip if enText is empty
-
-        console.log(`Replacing ${jpText} with ${cnText}!`);
-        findAndReplaceStatement.run({
-            ":search": jpText,
-            ":replace": cnText,
-        });
-    }
     
     savedb(db);
 };
