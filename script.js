@@ -9,7 +9,7 @@ const fetchTranslationJSON = async () => {
     const body2 = await fetch(`data/character_system_text.json?${new Date().getTime()}`);
     const body3 = await fetch(`data/race_jikkyo_comment.json?${new Date().getTime()}`);
     const body4 = await fetch(`data/race_jikkyo_message.json?${new Date().getTime()}`);
-    const body5 = await fetch(`data/skill-desc.json?${new Date().getTime()}`); 
+    const body5 = await fetch(`data/skill_desc.json?${new Date().getTime()}`); 
     const bodys = [await body.json(), await body2.json(), await body3.json(), await body4.json(), await body5.json()];
 
     return await bodys;
