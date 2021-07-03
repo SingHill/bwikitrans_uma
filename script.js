@@ -1,6 +1,7 @@
 // Put SQL and Database as global variable
 let SQL;
 let db;
+var log="";
 
 // fetchTranslationJSON returns json containing translation data
 // append timestamp to get fresh copy since github pages caching is aggressive
@@ -55,7 +56,8 @@ const process = async (db) => {
         const cnText = data[0][jpText];
         if (!cnText) continue; // Skip if enText is empty
 
-        console.log(`Replacing ${jpText} with ${cnText}!`);
+		//console.log(`Replacing ${jpText} with ${cnText}!`);
+		log=log+"Replacing "+jpText+" with "+cnText+"!\n"
         findAndReplaceStatement.run({
             ":search": jpText,
             ":replace": cnText,
@@ -68,7 +70,8 @@ const process = async (db) => {
         const cnText = data[1][jpText];
         if (!cnText) continue; // Skip if enText is empty
 
-        console.log(`Replacing ${jpText} with ${cnText}!`);
+        //console.log(`Replacing ${jpText} with ${cnText}!`);
+        log=log+"Replacing "+jpText+" with "+cnText+"!\n"
         findAndReplaceStatement2.run({
             ":search": jpText,
             ":replace": cnText,
@@ -81,7 +84,8 @@ const process = async (db) => {
         const cnText = data[2][jpText];
         if (!cnText) continue; // Skip if enText is empty
 
-        console.log(`Replacing ${jpText} with ${cnText}!`);
+        //console.log(`Replacing ${jpText} with ${cnText}!`);
+        log=log+"Replacing "+jpText+" with "+cnText+"!\n"
         findAndReplaceStatement3.run({
             ":search": jpText,
             ":replace": cnText,
@@ -94,15 +98,17 @@ const process = async (db) => {
         const cnText = data[3][jpText];
         if (!cnText) continue; // Skip if enText is empty
 
-        console.log(`Replacing ${jpText} with ${cnText}!`);
+        //console.log(`Replacing ${jpText} with ${cnText}!`);
+        log=log+"Replacing "+jpText+" with "+cnText+"!\n"
         findAndReplaceStatement4.run({
             ":search": jpText,
             ":replace": cnText,
         });
     }
-    
-    
+
+
     savedb(db);
+    console.log(log);
 };
 
 // listenFileChange loads picked file as sqlite database
